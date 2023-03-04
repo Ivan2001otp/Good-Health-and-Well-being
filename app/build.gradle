@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures{
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -46,4 +50,9 @@ dependencies {
 
     //firebase bom dependency
     implementation platform('com.google.firebase:firebase-bom:31.0.0')
+
+
+    //google fit dependency
+    implementation("com.google.android.gms:play-services-fitness:21.1.0")
+    implementation("com.google.android.gms:play-services-auth:20.4.1")
 }
