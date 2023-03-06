@@ -55,4 +55,24 @@ dependencies {
     //google fit dependency
     implementation("com.google.android.gms:play-services-fitness:21.1.0")
     implementation("com.google.android.gms:play-services-auth:20.4.1")
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.6.4"
+
+
 }
