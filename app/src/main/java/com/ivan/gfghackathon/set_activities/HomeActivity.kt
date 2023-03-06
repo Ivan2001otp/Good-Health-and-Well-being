@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.ivan.gfghackathon.FragmentsHub.DietFragment
 import com.ivan.gfghackathon.FragmentsHub.HomeFragment
 import com.ivan.gfghackathon.R
 import com.ivan.gfghackathon.Service.ApiClient
+import com.ivan.gfghackathon.Service.DietViewModel
 import com.ivan.gfghackathon.Utils.ApiService
 import com.ivan.gfghackathon.databinding.ActivityHomeBinding
 import kotlinx.coroutines.CoroutineScope
@@ -22,12 +24,16 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding:ActivityHomeBinding
     var choice:Int = -1
     lateinit var toggle : ActionBarDrawerToggle
+    private lateinit var viewModel: DietViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //instances
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //initializing shared view model
+        viewModel = ViewModelProvider(this).get(DietViewModel::class.java)//here we gave the activity scope
 
        choice = intent.getIntExtra("planType",3)
 
@@ -63,7 +69,7 @@ class HomeActivity : AppCompatActivity() {
             try{
                 if(response.isSuccessful){
                     Log.e("tag", "fetched successfully")
-                    println(response.body())
+                    Log.d("tag", "api data : "+response.body())
                 }else{
                     Log.e("tag", "error: ${response.code()}" )
                 }

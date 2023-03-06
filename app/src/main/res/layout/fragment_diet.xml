@@ -6,193 +6,311 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentsHub.DietFragment">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
         android:layout_width="match_parent"
-
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        android:layout_height="wrap_content">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
             android:orientation="horizontal">
-
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="6dp"
+                    android:backgroundTint="@color/teal_700"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="12dp">
+
                     <LinearLayout
+                        android:id="@+id/max_proteins_ll"
                         android:layout_width="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="maxProtein"
-                                android:textSize="22sp"
-                                />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/max_proteins_tv"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="max Fats"
-                            android:textSize="22sp"
-                            />
+                            android:layout_marginEnd="3dp"
+                            android:drawableEnd="@drawable/pro_max"
+                            android:padding="4dp"
+                            android:text="MaxProteins"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
+
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/teal_700"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="12dp">
+
+                    <LinearLayout
+                        android:id="@+id/max_fats_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/max_fats_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:drawableEnd="@drawable/fats_max"
+                            android:padding="4dp"
+                            android:text="Max-Fats"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/teal_700"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="12dp">
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
+                        android:id="@+id/max_calories_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/max_calories_tv"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="max Calories"
-                            android:textSize="22sp"
-                            />
+                            android:layout_marginEnd="3dp"
+                            android:drawableRight="@drawable/max_cal"
+                            android:padding="3dp"
+                            android:text="Max-Calories"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/teal_700"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="12dp">
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
+                        android:id="@+id/max_carbs_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/max_carbs_tv"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="max Carbs"
-                            android:textSize="22sp"
-                            />
+                            android:layout_marginEnd="3dp"
+                            android:drawableRight="@drawable/carbs_max"
+                            android:padding="3dp"
+                            android:text="Max-Carbs"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="minProteins"
-                                android:textSize="22sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/teal_700"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="12dp">
 
-                                />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
                     <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/min_proteins_ll"
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/min_proteins_tv"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="min Fats"
-                            android:textSize="22sp"
-
-                            />
+                            android:drawableEnd="@drawable/pro_min"
+                            android:padding="4dp"
+                            android:text="Min-Proteins"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/teal_700"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="12dp">
+
                     <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/min_fats_ll"
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/min_fats_tv"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="min Calories"
-                            android:textSize="22sp"
-
-                            />
+                            android:drawableEnd="@drawable/fat_min"
+                            android:padding="4dp"
+                            android:text="Min-Fats"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="minCarbs"
-                            android:textSize="22sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
 
-                            />
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/teal_700"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="12dp">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/min_calories_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/min_calories_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/min_calorie"
+                            android:padding="4dp"
+                            android:text="Min-Calories"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="21sp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:backgroundTint="@color/teal_700"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="12dp">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/min_carbs_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/min_carbs_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/carbs_min"
+                            android:padding="4dp"
+                            android:text="Min-Carbs"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </com.google.android.material.card.MaterialCardView>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
+
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/black"
 
-        android:gravity="center"
-        android:text="diet fragment" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/float_btn"
+        android:src="@drawable/float_tato"
+        android:backgroundTint="#0452E3"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
