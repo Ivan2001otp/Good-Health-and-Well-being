@@ -25,7 +25,7 @@
             android:hint="Max-Protein"
             android:inputType="number"
             android:drawableEnd="@drawable/pro_max"
-            android:maxLength="6"
+            android:maxLength="5"
             android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
-            android:maxLength="6"
+            android:maxLength="5"
             android:maxLines="1"
             android:drawableEnd="@drawable/pro_min"
             android:hint="Min-Protein" />
@@ -70,7 +70,7 @@
             android:layout_height="match_parent"
             android:hint="Max-Fat"
             android:inputType="number"
-            android:maxLength="6"
+            android:maxLength="5"
             android:drawableEnd="@drawable/fats_max"
             android:maxLines="1"
             tools:layout_editor_absoluteX="24dp"
@@ -119,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
-            android:maxLength="6"
+            android:maxLength="5"
             android:drawableEnd="@drawable/carbs_max"
             android:maxLines="1"
             android:hint="Max-Carbohydrates"
@@ -167,7 +167,7 @@
             android:layout_height="match_parent"
             android:hint="Max-Calories"
             android:inputType="number"
-            android:maxLength="6"
+            android:maxLength="5"
             android:maxLines="1"
             android:drawableEnd="@drawable/max_cal"
             tools:layout_editor_absoluteX="16dp"
@@ -193,7 +193,7 @@
             android:drawableEnd="@drawable/min_calorie"
             android:hint="Min-Calories"
             android:inputType="number"
-            android:maxLength="6"
+            android:maxLength="5"
             android:maxLines="1"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="295dp" />

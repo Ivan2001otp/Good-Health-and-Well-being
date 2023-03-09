@@ -49,6 +49,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+
+    //delegating viewmodels()
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
+
     //firebase bom dependency
     implementation platform('com.google.firebase:firebase-bom:31.0.0')
 

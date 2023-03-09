@@ -32,6 +32,10 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val actionBar = supportActionBar
+
+        actionBar?.hide()
+
         //initializing shared view model
         viewModel = ViewModelProvider(this).get(DietViewModel::class.java)//here we gave the activity scope
 
@@ -63,25 +67,27 @@ class HomeActivity : AppCompatActivity() {
         filter.put("maxCarbs",100)
         filter.put("minCarbs",50)
         filter.put("random",0)
-        CoroutineScope(Dispatchers.IO).launch{
-            val response = service.getRecipes(filter)
 
-            try{
-                if(response.isSuccessful){
-                    Log.e("tag", "fetched successfully")
-                    Log.d("tag", "api data : "+response.body())
-                }else{
-                    Log.e("tag", "error: ${response.code()}" )
-                }
-            }catch (e:HttpException){
-                println(e.message)
-                e.printStackTrace()
-            }catch(e:Throwable){
-                e.printStackTrace()
-            }finally {
-               //close the resource
-            }
-        }
+
+//        CoroutineScope(Dispatchers.IO).launch{
+//            val response = service.getRecipes(filter)
+//
+//            try{
+//                if(response.isSuccessful){
+//                    Log.e("tag", "fetched successfully")
+//                    Log.d("tag", "api data : "+response.body())
+//                }else{
+//                    Log.e("tag", "error: ${response.code()}" )
+//                }
+//            }catch (e:HttpException){
+//                println(e.message)
+//                e.printStackTrace()
+//            }catch(e:Throwable){
+//                e.printStackTrace()
+//            }finally {
+//               //close the resource
+//            }
+//        }
 
         showFragment(HomeFragment())
        binding.bottomNavBarId.setOnItemSelectedListener{item->
