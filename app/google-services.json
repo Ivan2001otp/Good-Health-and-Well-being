@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "710393332648",
+    "project_id": "gfghackathon-3c164",
+    "storage_bucket": "gfghackathon-3c164.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710393332648:android:b3624bff2953bd3cf0539d",
+        "android_client_info": {
+          "package_name": "com.ivan.gfghackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710393332648-vfvu0s15p8mpnj34r845vk43bvr0v8o9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3j0-ArFe44rBp7hyOnVrY0TPM7dKclMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710393332648-vfvu0s15p8mpnj34r845vk43bvr0v8o9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
