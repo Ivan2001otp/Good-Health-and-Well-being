@@ -61,7 +61,7 @@ class HomeActivity : AppCompatActivity() {
 
 
         //working with retrofit
-        val service = ApiClient.getClient().create(ApiService::class.java)
+    //  val service = ApiClient.getClient().create(ApiService::class.java)
         //run coroutine
         val filter = HashMap<String,Int>()
         filter.put("maxCarbs",100)

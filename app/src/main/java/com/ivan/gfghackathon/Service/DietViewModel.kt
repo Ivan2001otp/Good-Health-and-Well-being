@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class DietViewModel: ViewModel() {
-    private val _minProteins=MutableLiveData<Int>(1)
-    private val _maxProteins = MutableLiveData<Int>(1)
-    private val _minFats = MutableLiveData<Int>(1)
-    private val _maxFats = MutableLiveData<Int>(1)
-    private val _minCalories = MutableLiveData<Int>(1)
-    private val _maxCalories = MutableLiveData<Int>(1)
-    private val _minCarbs = MutableLiveData<Int>(1)
-    private val _maxCarbs = MutableLiveData<Int>(1)
+    private val _minProteins=MutableLiveData<Int>(2)
+    private val _maxProteins = MutableLiveData<Int>(50)
+    private val _minFats = MutableLiveData<Int>(10)
+    private val _maxFats = MutableLiveData<Int>(55)
+    private val _minCalories = MutableLiveData<Int>(33)
+    private val _maxCalories = MutableLiveData<Int>(200)
+    private val _minCarbs = MutableLiveData<Int>(10)
+    private val _maxCarbs = MutableLiveData<Int>(100)
 
     val minProteins:LiveData<Int> = _minProteins
     val maxProteins:LiveData<Int> = _maxProteins
