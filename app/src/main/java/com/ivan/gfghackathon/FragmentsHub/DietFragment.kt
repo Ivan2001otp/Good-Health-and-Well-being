@@ -1,58 +1,40 @@
 package com.ivan.gfghackathon.FragmentsHub
 
-import android.content.Context
-import android.content.Context.CONNECTIVITY_SERVICE
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ivan.gfghackathon.AdapterService.RecipeAdapter
 import com.ivan.gfghackathon.Model.Recipe
 import com.ivan.gfghackathon.Service.ApiClient
 import com.ivan.gfghackathon.Service.DietViewModel
 import com.ivan.gfghackathon.Utils.ApiService
+import com.ivan.gfghackathon.Utils.HelperViewModel
 import com.ivan.gfghackathon.databinding.FragmentDietBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.json.JSONArray
-import retrofit2.HttpException
 
 
 class DietFragment : Fragment() {
+
 private var _binding : FragmentDietBinding?=null
 private val binding get() = _binding!!
 private  val sharedViewModel: DietViewModel by activityViewModels()
 
+private lateinit var recyclerAdapter:RecipeAdapter
 
-    override fun onResume() {
+
+override fun onResume() {
         super.onResume()
 
-        //checking internet connectivity
-//        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)  as ConnectivityManager
-//        val network = connectivityManager.activeNetwork
-//        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
-//
-//        if(networkCapabilities!=null  && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)){
-//
-//        }else{
-//
-//        }
-
-
-
-
+        Log.d("tag", "onResume: executed")
 
         sharedViewModel.minCalories.observe(viewLifecycleOwner,Observer<Any> {
 
@@ -85,10 +67,39 @@ private  val sharedViewModel: DietViewModel by activityViewModels()
             binding.minProteinsTv.text = "MinProteins:"+sharedViewModel.minProteins.value.toString()
 
         })
+        sharedViewModel.transitionSwitch.observe(viewLifecycleOwner,Observer{
+            Log.d("tag", "parent frag onviewCreate: "+sharedViewModel.transitionSwitch.value)
+        })
+/*
+        sharedViewModel.transitionSwitch.observe(viewLifecycleOwner,Observer{
+            Log.d("tag", "onResume after fetching : $it")
+            if(it){
+                //launch a coroutine and fetch the content into the recycler view.
 
 
+                //set the filter
+                val filter = HashMap<String,Any>()
+                filter.put("minProtein",sharedViewModel.minProteins.value!!)
+                filter.put("maxProtein",sharedViewModel.maxProteins.value!!)
+                val service = ApiClient.getClient().create(ApiService::class.java)
+                //launch a coroutine
+                val j =  CoroutineScope(Dispatchers.IO).launch{
+                    response = service.getRecipes(filter)
+                }
 
-    }
+                if(j.isCompleted){
+                    sharedViewModel.setRecipeList(response)
+                    Log.d("tag", "job completed ")
+                }
+
+                Log.d("tag", "onResume: "+response.get(0).title)
+                sharedViewModel.onSwitchToChildFragment(false)//-->this to make prepare for the next switch.
+            }
+        })*/
+
+
+}
+
 
 
     //parent fragment
@@ -96,79 +107,64 @@ private  val sharedViewModel: DietViewModel by activityViewModels()
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.floatBtn.setOnClickListener{v->
-            NutrientsSettingsFragment().show(requireActivity().supportFragmentManager,"dietFragment")
-        }
-
-
-        val service = ApiClient.getClient().create(ApiService::class.java)
-        //run coroutine
         val filter = HashMap<String,Any>()
-        filter.put("maxCarbs",sharedViewModel.maxCarbs.value!!)
-        filter.put("minCarbs",sharedViewModel.minCarbs.value!!)
-        filter.put("random",1)
-        filter.put("maxFat",sharedViewModel.maxFats.value!!)
-        filter.put("minFat",sharedViewModel.minFats.value!!)
         filter.put("minProtein",sharedViewModel.minProteins.value!!)
         filter.put("maxProtein",sharedViewModel.maxProteins.value!!)
-       // filter.put("minCalories",sharedViewModel.minCalories.value!!)
-       // filter.put("maxCalories",sharedViewModel.maxCalories.value!!)
 
+        val service = ApiClient.getClient().create(ApiService::class.java)
+        HelperViewModel().getListFromApibyCoroutine(service,filter,sharedViewModel)
 
-        //converting json array to kotlin objects.
-
-
-
-
-
-//        using coroutine
-        val job = CoroutineScope(Dispatchers.IO).launch{
-            Log.e("tag", "invoked coroutine", )
+        Log.d("tag", "after api call : "+sharedViewModel.recipeList.value?.get(0)?.image)
+        binding.recyclerViewFoodList.setHasFixedSize(true)
+        binding.recyclerViewFoodList.layoutManager = LinearLayoutManager(context)
 
 
 
-            val response : List<Recipe> = service.getRecipes(filter)
-            Log.e("tag",response.get(0).calorie)
-            Log.e("tag",response.get(0).title)
-            Log.e("tag",response.get(0).image)
+        sharedViewModel.recipeList.observe(viewLifecycleOwner) {response_list->
+            Log.d("tag", "onViewCreated: observer executed")
+
+            recyclerAdapter = RecipeAdapter(response_list)
+            binding.recyclerViewFoodList.adapter = recyclerAdapter
+        }
+
+        //launch a coroutine
+       /* val j =  CoroutineScope(Dispatchers.IO).launch{
+
+
+            binding.recyclerViewFoodList.setHasFixedSize(true)
+            binding.recyclerViewFoodList.layoutManager = LinearLayoutManager(requireActivity())
+            recyclerAdapter = RecipeAdapter(response)
+            binding.recyclerViewFoodList.adapter = recyclerAdapter
+
+            for(item in response){
+                Log.d("tag", "api response: "+item.title)
+                Log.d("tag", "api response: "+item.image)
+            }
+        }*/
+
+
+
 
         /*
-            try{
+        sharedViewModel.recipeList.observe(viewLifecycleOwner,Observer{
+            Log.d("tag", "onViewCreated: ${it.get(0).id}")
+            recyclerAdapter = RecipeAdapter(it)
+            binding.recyclerViewFoodList.adapter = recyclerAdapter
+//            recyclerAdapter.notifyDataSetChanged()
+        })*/
 
-                val response = JSONArray(service.getRecipes(filter))
-                System.err.println(response.toString())
-                val recipeListType = object : TypeToken<List<Recipe>>(){}.type
-                val recipeList:List<Recipe> = gson.fromJson(response.toString(),recipeListType)
 
 
-                if(!recipeList.isEmpty()){
-                    Log.d("tag", recipeList.get(0).image)
-                    Log.d("tag", recipeList.get(1).title)
-                    Log.d("tag", recipeList.get(0).calorie)
-                    Log.e("tag", "fetched successfully")
-
-                }else{
-                    Log.e("tag", "error: list is empty")
-                }
-            }catch (e: HttpException){
-                println(e.message)
-                e.printStackTrace()
-            }catch(e:Throwable){
-                e.printStackTrace()
-            }finally {
-                //close the resource
-            }*/
+        binding.floatBtn.setOnClickListener { v ->
+            NutrientsSettingsFragment().show(
+                requireActivity().supportFragmentManager,
+                "dietFragment"
+            )
         }
 
-        if(job.isActive){
-            Log.e("tag", "active")
-        }
-        if(job.isCompleted) {
-            Log.e("tag", "job completed!")
-        }
-        if(job.isCancelled){
-            Log.e("tag", "job cancelled!")
-        }
+
+
+
     }
 
 
@@ -179,8 +175,6 @@ private  val sharedViewModel: DietViewModel by activityViewModels()
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentDietBinding.inflate(inflater,container,false)
-
-
         return binding.root
     }
 

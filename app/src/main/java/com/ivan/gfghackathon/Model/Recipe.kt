@@ -5,7 +5,7 @@ import java.net.URI
 
 data class Recipe(
     @SerializedName("id")
-    val id:Double,
+    val id:Long,
 
     @SerializedName("title")
     val title:String,

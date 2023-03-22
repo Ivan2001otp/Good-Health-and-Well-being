@@ -3,6 +3,8 @@ package com.ivan.gfghackathon.Service
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ivan.gfghackathon.Model.Recipe
+import java.nio.file.attribute.AclEntry.Builder
 
 class DietViewModel: ViewModel() {
     private val _minProteins=MutableLiveData<Int>(2)
@@ -14,6 +16,14 @@ class DietViewModel: ViewModel() {
     private val _minCarbs = MutableLiveData<Int>(10)
     private val _maxCarbs = MutableLiveData<Int>(100)
 
+    private var _recipeList = MutableLiveData<List<Recipe>>()
+
+    private val _transitionSwitch = MutableLiveData(false)//initially not switched to child fragment
+
+
+
+    val transitionSwitch:LiveData<Boolean> = _transitionSwitch
+
     val minProteins:LiveData<Int> = _minProteins
     val maxProteins:LiveData<Int> = _maxProteins
     val minFats:LiveData<Int> = _minFats
@@ -22,7 +32,16 @@ class DietViewModel: ViewModel() {
     val maxCalories : LiveData<Int> = _maxCalories
     val minCarbs : LiveData<Int> = _minCarbs
     val maxCarbs : LiveData<Int> = _maxCarbs
+    val recipeList : LiveData<List<Recipe>> = _recipeList
 
+
+    fun onSwitchToChildFragment(switchValue:Boolean){
+        _transitionSwitch.value = switchValue
+    }
+
+    fun setRecipeList(response:List<Recipe>){
+        _recipeList = MutableLiveData(response)
+    }
 
     fun setMaxProteinParams(mxProtien:Int){
         _maxProteins.value=mxProtien

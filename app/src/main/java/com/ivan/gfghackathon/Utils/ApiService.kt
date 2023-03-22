@@ -1,6 +1,7 @@
 package com.ivan.gfghackathon.Utils
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.ivan.gfghackathon.Model.Recipe
 import retrofit2.Call
 import retrofit2.Response
@@ -12,8 +13,8 @@ import retrofit2.http.QueryMap
 interface ApiService {
 
     // https://api.spoonacular.com/recipes/findByNutrients
-    @GET("/recipes/findByNutrients?apiKey=50e38fd0beff49a0add73c7a30409c4d")
-    suspend fun getRecipes(@QueryMap filter:HashMap<String,Any>):List<Recipe>
+    @GET("/recipes/findByNutrients?random=true&apiKey=50e38fd0beff49a0add73c7a30409c4d")
+    suspend fun getRecipes(@QueryMap filter:HashMap<String,Any>): List<Recipe>
 //@query map is used when more than two params
 //@query parameter can be used to send two params
 //@path can be used to send only one parameter
