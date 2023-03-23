@@ -336,7 +336,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="10dp"
-        android:background="@drawable/round_corners_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
@@ -349,6 +348,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
+            android:background="@drawable/only_corners"
             tools:listitem="@layout/todo_item_recipe"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -356,6 +356,22 @@
             android:id="@+id/recycler_view_food_list"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/loading_animation"
+            android:visibility="gone"
+            android:padding="3dp"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/loading_anim"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -16,7 +16,7 @@ class DietViewModel: ViewModel() {
     private val _minCarbs = MutableLiveData<Int>(10)
     private val _maxCarbs = MutableLiveData<Int>(100)
 
-    private var _recipeList = MutableLiveData<List<Recipe>>()
+    private val _recipeList = MutableLiveData<List<Recipe>>()
 
     private val _transitionSwitch = MutableLiveData(false)//initially not switched to child fragment
 
@@ -40,7 +40,7 @@ class DietViewModel: ViewModel() {
     }
 
     fun setRecipeList(response:List<Recipe>){
-        _recipeList = MutableLiveData(response)
+        _recipeList.value = response
     }
 
     fun setMaxProteinParams(mxProtien:Int){
