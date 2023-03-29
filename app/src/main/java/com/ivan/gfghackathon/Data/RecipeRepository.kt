@@ -1,6 +1,7 @@
 package com.ivan.gfghackathon.Data
 
 import android.content.Context
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ class RecipeRepository  {
      suspend fun getRecipeListNetworkCall(filter:HashMap<String,Any>) : List<Recipe> {
              val service = ApiClient.getClient().create(ApiService::class.java)
             val responseList:List<Recipe> =  service.getRecipes(filter)
-            return responseList
+            Log.d("tag", "repo : api invoked")
+         return responseList
      }
 }

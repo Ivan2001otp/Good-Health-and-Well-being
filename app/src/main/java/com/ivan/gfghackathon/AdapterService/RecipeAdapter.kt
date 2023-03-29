@@ -1,21 +1,43 @@
 package com.ivan.gfghackathon.AdapterService
 
+import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.ivan.gfghackathon.FragmentsHub.DietFragment
+import com.ivan.gfghackathon.Model.OnRecipeCheckClickListener
 import com.ivan.gfghackathon.Model.Recipe
 import com.ivan.gfghackathon.R
 import com.ivan.gfghackathon.Service.FinalKeyAssets
 
-class RecipeAdapter(var recipeList:List<Recipe>) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter(private val context: Context,
+                    private var recipeList:List<Recipe>,
+                    private val onRecipeCheckClickListener: OnRecipeCheckClickListener
+) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
-    inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),View.OnClickListener{
+        init{
+                itemView.findViewById<ImageButton>(R.id.row_add_fav).setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val p = adapterPosition
+            val item:Recipe= recipeList.get(p)
+
+            val view_id : Int = v?.id!!
+
+            when(view_id){
+                R.id.row_add_fav->onRecipeCheckClickListener.getClickedRecipe(item,p)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,7 +52,9 @@ class RecipeAdapter(var recipeList:List<Recipe>) : RecyclerView.Adapter<RecipeAd
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+
         holder.itemView.apply{
+
             this.findViewById<TextView>(R.id.row_carbs_tv).text =  buildString {
         append(FinalKeyAssets.Carbohydrates)
         append(recipeList.get(position).carbs)
@@ -62,4 +86,8 @@ class RecipeAdapter(var recipeList:List<Recipe>) : RecyclerView.Adapter<RecipeAd
     override fun getItemCount(): Int {
         return recipeList.size
     }
+
+
 }
+
+

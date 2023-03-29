@@ -8,4 +8,6 @@ object AssetDb {
         PlansCategory("Gain Weight","gain_weight"),
         PlansCategory("Healthy Diet","healthy")
     )
+
+
 }

@@ -19,7 +19,6 @@ private lateinit var binding: ActivityMainBinding
         binding.splashBtn.setOnClickListener{v->
             val planActivityIntent = Intent(this,PlanActivity::class.java)
             startActivity(planActivityIntent)
-
         }
 
     }

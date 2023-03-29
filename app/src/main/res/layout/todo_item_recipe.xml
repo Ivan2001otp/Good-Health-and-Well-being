@@ -7,7 +7,7 @@
     android:layout_marginStart="3dp"
     android:layout_marginEnd="3dp"
     android:layout_marginTop="1dp"
-    android:layout_marginBottom="3dp"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/recycler_item_recipe_corners"
     android:layout_height="wrap_content">
 
