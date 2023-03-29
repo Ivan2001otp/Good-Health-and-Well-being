@@ -1,41 +1,55 @@
 package com.ivan.gfghackathon.FragmentsHub
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.ivan.gfghackathon.Service.ApiClient
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ivan.gfghackathon.AdapterService.RecipeAdapter
+import com.ivan.gfghackathon.Data.FavViewModel
+import com.ivan.gfghackathon.Data.FavViewModelFactory
+import com.ivan.gfghackathon.Data.RecipeRepository
+import com.ivan.gfghackathon.Model.FavApplication
+import com.ivan.gfghackathon.Model.FavRecipe
+import com.ivan.gfghackathon.Model.OnRecipeCheckClickListener
+import com.ivan.gfghackathon.Model.Recipe
 import com.ivan.gfghackathon.Service.DietViewModel
-import com.ivan.gfghackathon.Utils.ApiService
+import com.ivan.gfghackathon.Utils.DialogBuilderUtil
 import com.ivan.gfghackathon.databinding.FragmentDietBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
+import kotlinx.coroutines.*
+import java.util.*
+import kotlin.collections.HashMap
 
 
-class DietFragment : Fragment() {
+class DietFragment : Fragment(),OnRecipeCheckClickListener {
+
 private var _binding : FragmentDietBinding?=null
 private val binding get() = _binding!!
 private  val sharedViewModel: DietViewModel by activityViewModels()
+private val repository:RecipeRepository = RecipeRepository()
+private lateinit var recyclerAdapter:RecipeAdapter
+private lateinit var responseList:List<Recipe>
+
+private  val favListViewModel: FavViewModel by viewModels{
+    FavViewModelFactory((requireActivity().application as FavApplication).repository)
+}
 
 
-    override fun onResume() {
+override fun onResume() {
         super.onResume()
 
-        sharedViewModel.minCalories.observe(viewLifecycleOwner,Observer<Any> {
-            println(it)
-           binding.minCaloriesTv.text = "minCals:"+sharedViewModel.minCalories.value.toString()
-           binding.minProteinsTv.text = "MinProteins:"+sharedViewModel.minProteins.value.toString()
+        Log.d("tag", "onResume: executed")
 
+        sharedViewModel.minCalories.observe(viewLifecycleOwner,Observer<Any> {
+
+           binding.minCaloriesTv.text = "minCals:"+sharedViewModel.minCalories.value.toString()
        })
         sharedViewModel.maxCalories.observe(viewLifecycleOwner,Observer{
             binding.maxCaloriesTv.text = "MaxCals:"+sharedViewModel.maxCalories.value.toString()
@@ -64,53 +78,132 @@ private  val sharedViewModel: DietViewModel by activityViewModels()
             binding.minProteinsTv.text = "MinProteins:"+sharedViewModel.minProteins.value.toString()
 
         })
+        sharedViewModel.transitionSwitch.observe(viewLifecycleOwner){isTrue->
+            if(isTrue){
+                Log.d("tag", "You switched to child fragmt")
+                sharedViewModel.onSwitchToChildFragment(false)
+                val filter = HashMap<String,Any>()
+                filter.put("maxProtein", sharedViewModel.maxProteins.value!!)
+                filter.put("minProtein",sharedViewModel.minProteins.value!!)
 
 
+                viewLifecycleOwner.lifecycleScope.launch(){
+                    withTimeout(10000){
+                        withContext(Dispatchers.IO){
+                            try{
+                                responseList = repository.getRecipeListNetworkCall(filter)
+                            }catch (e : TimeoutCancellationException){
+                                withContext(Dispatchers.Main){
+                                    Toast.makeText(context,"Poor Internet or Server is temporarily overloaded !",Toast.LENGTH_LONG)
+                                        .show()
+                                }
+                            }
+                        }
+                    }
 
-    }
+                    withContext(Dispatchers.Main){
+                        if(!responseList.isEmpty()){
+                            sharedViewModel.setRecipeList(responseList)
+                            Log.d("tag", "in onresume - "+responseList.get(0).title)
 
+                        }
+
+                       recyclerAdapter.onItemListChanged(responseList)
+
+                    }
+
+                }
+
+            }else{
+                //false
+                Log.d("tag", "You did not switched to child fragmt")
+
+            }
+        }
+
+}
 
     //parent fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.floatBtn.setOnClickListener{v->
-            NutrientsSettingsFragment().show(requireActivity().supportFragmentManager,"dietFragment")
-        }
-
-
-        val service = ApiClient.getClient().create(ApiService::class.java)
-        //run coroutine
         val filter = HashMap<String,Any>()
-        filter.put("maxCarbs",100)
-        filter.put("minCarbs",50)
-        filter.put("random",1)
-        filter.put("cuisine","")
-        filter.put("diet","")
+        filter.put("minProtein",sharedViewModel.minProteins.value!!)
+        filter.put("maxProtein",sharedViewModel.maxProteins.value!!)
 
-        CoroutineScope(Dispatchers.IO).launch{
-            val response = service.getRecipes(filter)
 
-            try{
-                if(response.isSuccessful){
-                    Log.e("tag", "fetched successfully")
-                    Log.d("tag", "api data : "+response.body())
-                }else{
-                    Log.e("tag", "error: ${response.code()}" )
-                }
-            }catch (e: HttpException){
-                println(e.message)
-                e.printStackTrace()
-            }catch(e:Throwable){
-                e.printStackTrace()
-            }finally {
-                //close the resource
-            }
+        Log.d("tag", "recycler view - 1")
+        binding.recyclerViewFoodList.setHasFixedSize(true)
+        val layout_manager = LinearLayoutManager(context)
+        layout_manager.orientation = LinearLayoutManager.VERTICAL
+        binding.recyclerViewFoodList.layoutManager = layout_manager
+
+        responseList = listOf()
+        var switch : Boolean = false
+         viewLifecycleOwner.lifecycleScope.launch {
+             Log.d("tag", "Going to coroutine-2")
+               withContext(Dispatchers.IO){
+                   Log.d("tag", "Going to coroutine-3")
+
+                  withTimeout(10000){
+                      Log.d("tag", "Going to coroutine-4")
+
+                      try{
+                          Log.d("tag", "Going to try - block")
+
+                          responseList = repository.getRecipeListNetworkCall(filter)
+                          Log.d("tag", "inside observer : "+responseList.get(0).title)
+
+                      }catch (e : TimeoutCancellationException){
+                          Log.d("tag", "Going to catch - block : ",e)
+                          e.printStackTrace()
+                          switch = true
+                      }
+                   }
+
+                   withContext(Dispatchers.Main){
+                       if(switch){
+                           Toast.makeText(requireContext(),"Poor Internet or Server is temporarily overloaded !",Toast.LENGTH_LONG)
+                               .show()
+                           switch=false
+                       }
+
+                   }
+
+
+                   withContext(Dispatchers.Main){
+                       if(!responseList.isEmpty())
+                       {      Log.d("tag", "list is not empty ")
+                           sharedViewModel.setRecipeList(responseList)
+                       }else{
+                           Log.d("tag", "list is empty ")
+                       }
+
+                       Log.d("tag", "I am near observer !")
+                       Log.d("tag", "inside observer : "+responseList.get(0).title)
+                       sharedViewModel.recipeList.observe(viewLifecycleOwner){itemList->
+
+                           recyclerAdapter = RecipeAdapter(requireContext(),itemList,this@DietFragment)
+                           recyclerAdapter.onItemListChanged(itemList)
+                           binding.recyclerViewFoodList.adapter = recyclerAdapter
+                       }
+                       Log.d("tag", "the size is : "+responseList.size)
+                   }
+               }
+
         }
+
+
+        binding.floatBtn.setOnClickListener { v ->
+            NutrientsSettingsFragment().show(
+                requireActivity().supportFragmentManager,
+                "dietFragment"
+            )
+        }
+
 
     }
-
 
 
     override fun onCreateView(
@@ -119,15 +212,24 @@ private  val sharedViewModel: DietViewModel by activityViewModels()
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentDietBinding.inflate(inflater,container,false)
-
-
         return binding.root
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         _binding=null
+    }
+
+    override fun getClickedRecipe(recipe: Recipe, adapterPosition: Int) {
+
+        val message = "Do you want to add to your collection ?"
+        val title = "FAVOURITES"
+        val timeInMillis  = Calendar.getInstance().timeInMillis.toString()
+        val obj:FavRecipe = FavRecipe(recipe.id,recipe.title,recipe.calorie,recipe.protein,recipe.carbs,recipe.fats,timeInMillis)
+        val builder_dialog = DialogBuilderUtil.DialogBoxBuilder(requireContext(),message
+                ,title,obj,favListViewModel,isSave = true)
+
+        builder_dialog.show()
     }
 }

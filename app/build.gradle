@@ -2,7 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
+
 
 android {
     namespace 'com.ivan.gfghackathon'
@@ -16,7 +18,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //enable multidex
+        multiDexEnabled true
     }
+
+
 
     buildTypes {
         release {
@@ -51,7 +58,13 @@ dependencies {
 
 
     //delegating viewmodels()
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
+    implementation "androidx.fragment:fragment-ktx:1.5.6"
+
+    //viewModelScope
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+
+    //livedata
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0"
 
     //firebase bom dependency
     implementation platform('com.google.firebase:firebase-bom:31.0.0')
@@ -65,19 +78,31 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    //okhttp
-    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.8'
 
+    //web 3j dapp dependency
+    implementation ('org.web3j:core:4.8.7')
+
+    //razor pay
+    implementation 'com.razorpay:checkout:1.6.26'
 
     //glide
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    kapt 'com.github.bumptech.glide:compiler:4.15.0'
+
+    //lottie animation
+    implementation 'com.airbnb.android:lottie:6.0.0'
 
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.6.4"
+    //rom dependency
+    implementation "androidx.room:room-runtime:2.5.1"
+    implementation "androidx.room:room-ktx:2.5.1"
+    kapt "androidx.room:room-compiler:2.5.1"
 
 
+    modules { module('org.jetbrains.kotlin:kotlin-stdlib-jdk8')
+            { replacedBy 'org.jetbrains.kotlin:kotlin-stdlib', 'kotlin fixes' }
+        module('org.jetbrains.kotlin:kotlin-stdlib-jdk7')
+                { replacedBy 'org.jetbrains.kotlin:kotlin-stdlib', 'kotlin fixes' } }
 }

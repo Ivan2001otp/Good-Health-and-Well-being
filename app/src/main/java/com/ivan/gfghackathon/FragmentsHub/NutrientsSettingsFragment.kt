@@ -44,6 +44,7 @@ private val binding get() = _binding!!
             binding.btFragMaxCarbsTv.setText(sharedViewModel.maxCarbs.value.toString())
             binding.btFragMinCarbsTv.setText(sharedViewModel.minCarbs.value.toString())
 
+            Log.d("tag", "onViewCreated: child frag invoked")
 
         //listener for the save button
         binding.saveBtn.setOnClickListener{v->
@@ -66,7 +67,7 @@ private val binding get() = _binding!!
             sharedViewModel.setMinProteinParams(minProtein.toInt())
             sharedViewModel.setMaxCarbsParams(maxCarbs.toInt())
             sharedViewModel.setMinCarbsParams(minCarbs.toInt())
-
+            sharedViewModel.onSwitchToChildFragment(true)
             dismiss()
         }
     }

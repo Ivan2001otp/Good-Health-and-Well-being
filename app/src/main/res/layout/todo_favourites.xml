@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingBottom="4dp"
+    android:background="@drawable/row_fav_item_corners"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginTop="6dp"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/row_fav_food_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food - Title"
+        android:textSize="25sp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="3dp"
+        android:padding="4dp"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/row_fav_cal_tv"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:text="Calories : xg"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/row_fav_food_title"
+        app:layout_constraintTop_toBottomOf="@+id/row_fav_food_title" />
+
+    <TextView
+        android:id="@+id/row_fav_fats_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:text="Fats : zg"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/row_fav_cal_tv"
+        app:layout_constraintStart_toEndOf="@+id/row_fav_cal_tv"
+        app:layout_constraintTop_toTopOf="@+id/row_fav_cal_tv" />
+
+    <TextView
+        android:id="@+id/row_fav_prot_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:text="Proteins : yg"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/row_fav_cal_tv"
+        app:layout_constraintStart_toStartOf="@+id/row_fav_cal_tv"
+        app:layout_constraintTop_toBottomOf="@+id/row_fav_cal_tv" />
+
+    <TextView
+        android:id="@+id/row_fav_carbs_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Carbs : wg"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/row_fav_fats_tv"
+        app:layout_constraintTop_toBottomOf="@+id/row_fav_fats_tv" />
+
+    <ImageView
+        android:id="@+id/delete_img"
+        android:layout_width="51dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete_img" />
+</androidx.constraintlayout.widget.ConstraintLayout>
