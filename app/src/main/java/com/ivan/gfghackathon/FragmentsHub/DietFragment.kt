@@ -85,7 +85,12 @@ override fun onResume() {
                 val filter = HashMap<String,Any>()
                 filter.put("maxProtein", sharedViewModel.maxProteins.value!!)
                 filter.put("minProtein",sharedViewModel.minProteins.value!!)
-
+                filter.put("minCarbs",sharedViewModel.minCarbs.value!!)
+                filter.put("maxCarbs",sharedViewModel.maxCarbs.value!!)
+                filter.put("minCalories",sharedViewModel.minCalories.value!!)
+                filter.put("maxCalories",sharedViewModel.maxCalories.value!!)
+                filter.put("minFat",sharedViewModel.minFats.value!!)
+                filter.put("maxFat",sharedViewModel.maxFats.value!!)
 
                 viewLifecycleOwner.lifecycleScope.launch(){
                     withTimeout(10000){
@@ -131,7 +136,12 @@ override fun onResume() {
         val filter = HashMap<String,Any>()
         filter.put("minProtein",sharedViewModel.minProteins.value!!)
         filter.put("maxProtein",sharedViewModel.maxProteins.value!!)
-
+        filter.put("minCarbs",sharedViewModel.minCarbs.value!!)
+        filter.put("maxCarbs",sharedViewModel.maxCarbs.value!!)
+        filter.put("minCalories",sharedViewModel.minCalories.value!!)
+        filter.put("maxCalories",sharedViewModel.maxCalories.value!!)
+        filter.put("minFat",sharedViewModel.minFats.value!!)
+        filter.put("maxFat",sharedViewModel.maxFats.value!!)
 
         Log.d("tag", "recycler view - 1")
         binding.recyclerViewFoodList.setHasFixedSize(true)
