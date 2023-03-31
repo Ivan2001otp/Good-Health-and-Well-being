@@ -20,6 +20,11 @@ class DonationActivity : AppCompatActivity(),PaymentResultListener{
         binding = ActivityDonationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val appBar_ = supportActionBar
+        appBar_!!.title = "Aid to Eliminate Hunger"
+        appBar_.setDisplayHomeAsUpEnabled(true)
+
+
         Checkout.preload(applicationContext)
 
         binding.sendBtn.setOnClickListener { view->

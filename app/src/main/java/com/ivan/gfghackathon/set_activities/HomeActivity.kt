@@ -1,14 +1,19 @@
 package com.ivan.gfghackathon.set_activities
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.ivan.gfghackathon.FragmentsHub.DietFragment
 import com.ivan.gfghackathon.FragmentsHub.HomeFragment
+import com.ivan.gfghackathon.MainActivity
 import com.ivan.gfghackathon.R
 import com.ivan.gfghackathon.Service.DietViewModel
 import com.ivan.gfghackathon.databinding.ActivityHomeBinding
@@ -19,7 +24,16 @@ class HomeActivity : AppCompatActivity() {
     var choice:Int = -1
     lateinit var toggle : ActionBarDrawerToggle
     private lateinit var viewModel: DietViewModel
+    private lateinit var auth:FirebaseAuth
+    private lateinit var database: FirebaseDatabase
 
+
+    override fun onStart() {
+        super.onStart()
+
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +63,21 @@ class HomeActivity : AppCompatActivity() {
                 R.id.donate_id->{
                     val donateIntent:Intent = Intent(this,DonationActivity::class.java)
                     startActivity(donateIntent)
+                }
+
+                R.id.logout->{
+                    val builder = AlertDialog.Builder(this)
+                        builder.setMessage("Do you want to signOut ?")
+                            .setCancelable(true)
+                            .setPositiveButton("Yes"){dialogInterface,it->
+                                auth.signOut()
+                                val intent = Intent(this@HomeActivity,MainActivity::class.java)
+                                startActivity(intent)
+                                finishAffinity()
+                            }.setNegativeButton("No"){dialogInterface,it->
+
+                            }.show()
+
                 }
 
             }

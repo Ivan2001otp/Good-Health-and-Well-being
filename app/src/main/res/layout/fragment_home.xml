@@ -37,6 +37,15 @@
                 android:padding="3dp"
                 android:layout_height="wrap_content"/>
 
+            <ImageView
+                android:id="@+id/step_counter_iv"
+                android:layout_width="110dp"
+                android:layout_height="103dp"
+                android:layout_gravity="center"
+                android:src="@drawable/step_counter"
+                android:layout_marginTop="4dp"
+                />
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -56,6 +65,16 @@
                 android:layout_marginStart="6dp"
                 android:padding="3dp"
                 android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/heart_rate_iv"
+                android:layout_width="110dp"
+                android:layout_height="103dp"
+                android:layout_gravity="center"
+                android:src="@drawable/heart_rate"
+
+                />
+
 
         </androidx.cardview.widget.CardView>
         
@@ -79,7 +98,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="Progress"
+            android:text='@string/tutorialText'
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -87,6 +106,17 @@
             android:layout_marginStart="6dp"
             android:padding="3dp"
             android:layout_height="wrap_content"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:id="@+id/yoga_animation"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/yoga_anim"
+            app:lottie_loop="true"
+            android:layout_marginTop="10dp"
+            />
 
     </androidx.cardview.widget.CardView>
 
@@ -120,12 +150,21 @@
                 android:padding="3dp"
                 android:layout_height="wrap_content"/>
 
+            <ImageView
+                android:id="@+id/calorie_tracker_iv"
+                android:layout_width="109dp"
+                android:layout_height="104dp"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center"
+                android:src="@drawable/calorie_tracker" />
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="175dp"
             android:backgroundTint="#37AEAEAF"
             app:cardCornerRadius="15dp"
+
             android:layout_marginStart="25dp"
             app:cardElevation="3dp"
             android:layout_height="195dp">
@@ -140,6 +179,15 @@
                 android:layout_marginStart="6dp"
                 android:padding="3dp"
                 android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/step_counter_cv"
+                android:layout_width="110dp"
+                android:layout_height="103dp"
+                android:layout_gravity="center"
+                android:src="@drawable/sleep_traker"
+                android:layout_marginTop="4dp"
+                />
 
         </androidx.cardview.widget.CardView>
 
