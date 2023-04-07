@@ -6,7 +6,7 @@ plugins {
 }
 
 
-android {
+android{
     namespace 'com.ivan.gfghackathon'
     compileSdk 33
 
@@ -14,16 +14,16 @@ android {
         applicationId "com.ivan.gfghackathon"
         minSdk 23
         targetSdk 33
-        versionCode 1
+        versionCode 2
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        //enable multidex
-        multiDexEnabled true
+        //multiDexEnabled true
     }
 
-
+    packagingOptions {
+        pickFirst  'META-INF/*'
+    }
 
     buildTypes {
         release {
@@ -42,6 +42,8 @@ android {
     buildFeatures{
         viewBinding true
     }
+
+
 }
 
 dependencies {
@@ -50,30 +52,33 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    
 
+    //multidex enabled
+    //implementation 'com.android.support:multidex:1.0.3'
 
     //delegating viewmodels()
     implementation "androidx.fragment:fragment-ktx:1.5.6"
 
     //viewModelScope
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"//2.6.0
 
     //livedata
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"//2.6.0
 
     //firebase bom dependency
-    implementation platform('com.google.firebase:firebase-bom:31.0.0')
-
+    //implementation platform('com.google.firebase:firebase-bom:31.0.0')
+    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.2.0'
 
     //google fit dependency
-    implementation("com.google.android.gms:play-services-fitness:21.1.0")
-    implementation("com.google.android.gms:play-services-auth:20.4.1")
+    implementation 'com.google.android.gms:play-services-fitness:21.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -96,12 +101,15 @@ dependencies {
     implementation 'com.airbnb.android:lottie:6.0.0'
 
 
-    //rom dependency
+    //room dependency
     implementation "androidx.room:room-runtime:2.5.1"
     implementation "androidx.room:room-ktx:2.5.1"
     kapt "androidx.room:room-compiler:2.5.1"
 
+    //vm instance
+    implementation 'com.google.cloud:google-cloud-compute:1.24.0'
 
+    //preventing to import redundant libraries
     modules { module('org.jetbrains.kotlin:kotlin-stdlib-jdk8')
             { replacedBy 'org.jetbrains.kotlin:kotlin-stdlib', 'kotlin fixes' }
         module('org.jetbrains.kotlin:kotlin-stdlib-jdk7')

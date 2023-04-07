@@ -1,14 +1,20 @@
 package com.ivan.gfghackathon.set_activities
 
-import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.ivan.gfghackathon.FragmentsHub.DietFragment
@@ -17,6 +23,10 @@ import com.ivan.gfghackathon.MainActivity
 import com.ivan.gfghackathon.R
 import com.ivan.gfghackathon.Service.DietViewModel
 import com.ivan.gfghackathon.databinding.ActivityHomeBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity() {
 
@@ -35,13 +45,14 @@ class HomeActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //instances
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
 
 
@@ -52,6 +63,11 @@ class HomeActivity : AppCompatActivity() {
 
 
         inflateNavigationDrawer()
+
+
+
+
+
         binding.navView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.myFavourites->{
@@ -100,6 +116,8 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(toggle.onOptionsItemSelected(item)){
             return true
@@ -122,5 +140,6 @@ class HomeActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    
 
 }

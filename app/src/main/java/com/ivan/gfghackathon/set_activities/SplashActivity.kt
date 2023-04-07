@@ -11,14 +11,17 @@ import com.ivan.gfghackathon.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding:ActivitySplashBinding
-    private lateinit var auth:FirebaseAuth
+    private var auth:FirebaseAuth ?= null
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding  = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = FirebaseAuth.getInstance()
 
-        if(auth.currentUser!=null){
+        auth = FirebaseAuth.getInstance()
+        if(auth?.currentUser!=null){
             val i = Intent(this,MainActivity::class.java)
             startActivity(i)
             finish()

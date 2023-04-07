@@ -9,6 +9,8 @@ object FinalKeyAssets {
 
     val aliterCarbs : String = "Carbs : "
 
-    val RazorPayApiKey:String="rzp_test_3WdFkgfwuWTfRd"
-    val merchantKey:String="JjKgynsXBv7U7o"
+    const val RazorPayApiKey:String="rzp_test_3WdFkgfwuWTfRd"
+    const val merchantKey:String="JjKgynsXBv7U7o"
+
+    const val YoutubeApiKey:String = "AIzaSyACNPiRUPkNkbvzKIfVA51xMsBh8t_7mbQ"
 }

@@ -6,8 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".Model.FavApplication"
@@ -21,15 +20,18 @@
         android:theme="@style/Theme.GfgHackathon"
         tools:targetApi="31">
 
-        <activity android:name=".set_activities.SplashActivity"
+        <activity
+            android:name=".set_activities.SplashActivity"
             android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
 
 
